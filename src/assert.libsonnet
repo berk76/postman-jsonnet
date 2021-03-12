@@ -45,6 +45,18 @@
     value: value,
   }),
 
+  assertHeaderToBeAtLeast(title, header, value):: |||
+    (function (params) {
+      pm.test(params.title, function () {
+        pm.expect(pm.response.headers.get(params.header).toNumber()).to.be.at.least(params.value.toNumber());
+      });
+    })(%s);
+  ||| % std.manifestJson({
+    title: title,
+    header: header,
+    value: value,
+  }),
+
   assertHeaderMatches(title, header, regex):: |||
     (function (params) {
       pm.test(params.title, function () {
