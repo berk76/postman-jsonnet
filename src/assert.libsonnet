@@ -171,6 +171,18 @@
     regex: regex,
   }),
 
+  assertJsonValueEquals(key, value):: |||
+    (function (params) {
+      pm.test(params.key, function () {
+        var jsonData = pm.response.json();
+        pm.expect(jsonData[params.key]).to.equal(params.value);
+      });
+    })(%s);
+  ||| % std.manifestJson({
+    key: key,
+    value: value,
+  }),
+
   assertCookieExists(title, name):: |||
     (function (params) {
       pm.test(params.title, function () {
